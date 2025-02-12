@@ -2,6 +2,8 @@ import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { supabase } from '$lib/supabaseClient';
 
+// export const prerender = true
+
 export const load: PageServerLoad = async () => {
     const { data, error} = await supabase.from('fuel').select('*').order('date', {
         ascending: false,

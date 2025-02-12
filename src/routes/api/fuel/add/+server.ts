@@ -2,6 +2,8 @@ import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { supabase } from '$lib/supabaseClient';
 
+// export const prerender = true;
+
 export const POST: RequestHandler = async ({request, params}) => {
 
     console.log("Handling post requset")
@@ -24,7 +26,7 @@ export const POST: RequestHandler = async ({request, params}) => {
 
         return json(data, {status: 200})
     } catch (error) {
-        return json({error: error.messasge}, {status: 500})
+        return json({error: error.message}, {status: 500})
     }
     
 

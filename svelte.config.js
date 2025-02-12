@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -14,7 +14,18 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$components: './src/components'
-		}
+		},
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// ignore deliberate link to shiny 404 page
+				if (path === '/') {
+					return;
+				}
+
+				// otherwise fail the build
+				throw new Error(message);
+			}
+		},
 	}
 };
 
